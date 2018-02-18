@@ -1,0 +1,985 @@
+{
+   "encoding" : "utf-8",
+   "feed" : {
+      "opensearch_startindex" : "0",
+      "guidislink" : true,
+      "id" : "http://arxiv.org/api/n4HpeOVek8yolTvsGNbgpKSm6Ug",
+      "title" : "ArXiv Query: search_query=ti:C and ti:elegans or abs:C and abs:elegans&id_list=&start=0&max_results=10",
+      "opensearch_totalresults" : "1316055",
+      "updated_parsed" : [
+         2018,
+         2,
+         18,
+         5,
+         0,
+         0,
+         6,
+         49,
+         0
+      ],
+      "title_detail" : {
+         "type" : "text/html",
+         "value" : "ArXiv Query: search_query=ti:C and ti:elegans or abs:C and abs:elegans&id_list=&start=0&max_results=10",
+         "language" : null,
+         "base" : ""
+      },
+      "opensearch_itemsperpage" : "10",
+      "updated" : "2018-02-18T00:00:00-05:00",
+      "link" : "http://arxiv.org/api/n4HpeOVek8yolTvsGNbgpKSm6Ug",
+      "links" : [
+         {
+            "type" : "application/atom+xml",
+            "rel" : "self",
+            "href" : "http://arxiv.org/api/query?search_query%3Dti%3AC%20and%20ti%3Aelegans%20or%20abs%3AC%20and%20abs%3Aelegans%26id_list%3D%26start%3D0%26max_results%3D10"
+         }
+      ]
+   },
+   "version" : "atom10",
+   "bozo" : 0,
+   "namespaces" : {
+      "arxiv" : "http://arxiv.org/schemas/atom",
+      "" : "http://www.w3.org/2005/Atom",
+      "opensearch" : "http://a9.com/-/spec/opensearch/1.1/"
+   },
+   "entries" : [
+      {
+         "author_detail" : {
+            "name" : "P. E. Arratia"
+         },
+         "links" : [
+            {
+               "type" : "text/html",
+               "rel" : "alternate",
+               "href" : "http://arxiv.org/abs/1110.3084v1"
+            },
+            {
+               "href" : "http://arxiv.org/pdf/1110.3084v1",
+               "type" : "application/pdf",
+               "rel" : "related",
+               "title" : "pdf"
+            }
+         ],
+         "updated" : "2011-10-13T22:34:25Z",
+         "author" : "P. E. Arratia",
+         "updated_parsed" : [
+            2011,
+            10,
+            13,
+            22,
+            34,
+            25,
+            3,
+            286,
+            0
+         ],
+         "authors" : [
+            {
+               "name" : "X. N. Shen"
+            },
+            {
+               "name" : "G. Juarez"
+            },
+            {
+               "name" : "P. E. Arratia"
+            }
+         ],
+         "tags" : [
+            {
+               "term" : "physics.flu-dyn",
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "label" : null
+            },
+            {
+               "label" : null,
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "physics.bio-ph"
+            }
+         ],
+         "guidislink" : true,
+         "link" : "http://arxiv.org/abs/1110.3084v1",
+         "arxiv_comment" : "Two video files are included",
+         "title_detail" : {
+            "value" : "C. elegans in Complex Media",
+            "language" : null,
+            "type" : "text/plain",
+            "base" : ""
+         },
+         "arxiv_primary_category" : {
+            "term" : "physics.flu-dyn",
+            "scheme" : "http://arxiv.org/schemas/atom"
+         },
+         "published" : "2011-10-13T22:34:25Z",
+         "summary_detail" : {
+            "base" : "",
+            "value" : "We experimentally studied the locomotion of the nematode C. elegans in both\nfluidic and granular media. In this fluid dynamics video, we show the motility\ngaits of the nematode in these two environments. The motility of the nematode\nC. elegans is investigated using particle tracking methods. Experimental\nresults show that different transport patterns emerge from the fluidic and\ngranular media during the nematode locomotion.",
+            "language" : null,
+            "type" : "text/plain"
+         },
+         "summary" : "We experimentally studied the locomotion of the nematode C. elegans in both\nfluidic and granular media. In this fluid dynamics video, we show the motility\ngaits of the nematode in these two environments. The motility of the nematode\nC. elegans is investigated using particle tracking methods. Experimental\nresults show that different transport patterns emerge from the fluidic and\ngranular media during the nematode locomotion.",
+         "id" : "http://arxiv.org/abs/1110.3084v1",
+         "published_parsed" : [
+            2011,
+            10,
+            13,
+            22,
+            34,
+            25,
+            3,
+            286,
+            0
+         ],
+         "title" : "C. elegans in Complex Media"
+      },
+      {
+         "updated" : "2010-03-22T21:08:43Z",
+         "author_detail" : {
+            "name" : "Yoav Freund"
+         },
+         "links" : [
+            {
+               "href" : "http://arxiv.org/abs/1003.4287v1",
+               "type" : "text/html",
+               "rel" : "alternate"
+            },
+            {
+               "type" : "application/pdf",
+               "title" : "pdf",
+               "rel" : "related",
+               "href" : "http://arxiv.org/pdf/1003.4287v1"
+            }
+         ],
+         "guidislink" : true,
+         "tags" : [
+            {
+               "label" : null,
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "cs.CV"
+            },
+            {
+               "label" : null,
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "q-bio.GN"
+            }
+         ],
+         "authors" : [
+            {
+               "name" : "Mayank Kabra"
+            },
+            {
+               "name" : "Annie L. Conery"
+            },
+            {
+               "name" : "Eyleen J. O'Rourke"
+            },
+            {
+               "name" : "Xin Xie"
+            },
+            {
+               "name" : "Vebjorn Ljosa"
+            },
+            {
+               "name" : "Thouis R. Jones"
+            },
+            {
+               "name" : "Frederick M. Ausubel"
+            },
+            {
+               "name" : "Gary Ruvkun"
+            },
+            {
+               "name" : "Anne E. Carpenter"
+            },
+            {
+               "name" : "Yoav Freund"
+            }
+         ],
+         "author" : "Yoav Freund",
+         "updated_parsed" : [
+            2010,
+            3,
+            22,
+            21,
+            8,
+            43,
+            0,
+            81,
+            0
+         ],
+         "arxiv_primary_category" : {
+            "term" : "cs.CV",
+            "scheme" : "http://arxiv.org/schemas/atom"
+         },
+         "title_detail" : {
+            "type" : "text/plain",
+            "value" : "Towards automated high-throughput screening of C. elegans on agar",
+            "language" : null,
+            "base" : ""
+         },
+         "link" : "http://arxiv.org/abs/1003.4287v1",
+         "id" : "http://arxiv.org/abs/1003.4287v1",
+         "summary" : "High-throughput screening (HTS) using model organisms is a promising method\nto identify a small number of genes or drugs potentially relevant to human\nbiology or disease. In HTS experiments, robots and computers do a significant\nportion of the experimental work. However, one remaining major bottleneck is\nthe manual analysis of experimental results, which is commonly in the form of\nmicroscopy images. This manual inspection is labor intensive, slow and\nsubjective. Here we report our progress towards applying computer vision and\nmachine learning methods to analyze HTS experiments that use Caenorhabditis\nelegans (C. elegans) worms grown on agar. Our main contribution is a robust\nsegmentation algorithm for separating the worms from the background using\nbrightfield images. We also show that by combining the output of this\nsegmentation algorithm with an algorithm to detect the fluorescent dye, Nile\nRed, we can reliably distinguish different fluorescence-based phenotypes even\nthough the visual differences are subtle. The accuracy of our method is similar\nto that of expert human analysts. This new capability is a significant step\ntowards fully automated HTS experiments using C. elegans.",
+         "title" : "Towards automated high-throughput screening of C. elegans on agar",
+         "published_parsed" : [
+            2010,
+            3,
+            22,
+            21,
+            8,
+            43,
+            0,
+            81,
+            0
+         ],
+         "published" : "2010-03-22T21:08:43Z",
+         "summary_detail" : {
+            "base" : "",
+            "language" : null,
+            "value" : "High-throughput screening (HTS) using model organisms is a promising method\nto identify a small number of genes or drugs potentially relevant to human\nbiology or disease. In HTS experiments, robots and computers do a significant\nportion of the experimental work. However, one remaining major bottleneck is\nthe manual analysis of experimental results, which is commonly in the form of\nmicroscopy images. This manual inspection is labor intensive, slow and\nsubjective. Here we report our progress towards applying computer vision and\nmachine learning methods to analyze HTS experiments that use Caenorhabditis\nelegans (C. elegans) worms grown on agar. Our main contribution is a robust\nsegmentation algorithm for separating the worms from the background using\nbrightfield images. We also show that by combining the output of this\nsegmentation algorithm with an algorithm to detect the fluorescent dye, Nile\nRed, we can reliably distinguish different fluorescence-based phenotypes even\nthough the visual differences are subtle. The accuracy of our method is similar\nto that of expert human analysts. This new capability is a significant step\ntowards fully automated HTS experiments using C. elegans.",
+            "type" : "text/plain"
+         }
+      },
+      {
+         "title_detail" : {
+            "type" : "text/plain",
+            "value" : "A neural circuit for navigation inspired by C. elegans Chemotaxis",
+            "language" : null,
+            "base" : ""
+         },
+         "arxiv_primary_category" : {
+            "term" : "cs.NE",
+            "scheme" : "http://arxiv.org/schemas/atom"
+         },
+         "link" : "http://arxiv.org/abs/1410.7881v1",
+         "title" : "A neural circuit for navigation inspired by C. elegans Chemotaxis",
+         "published_parsed" : [
+            2014,
+            10,
+            29,
+            5,
+            54,
+            22,
+            2,
+            302,
+            0
+         ],
+         "summary" : "We develop an artificial neural circuit for contour tracking and navigation\ninspired by the chemotaxis of the nematode Caenorhabditis elegans. In order to\nharness the computational advantages spiking neural networks promise over their\nnon-spiking counterparts, we develop a network comprising 7-spiking neurons\nwith non-plastic synapses which we show is extremely robust in tracking a range\nof concentrations. Our worm uses information regarding local temporal gradients\nin sodium chloride concentration to decide the instantaneous path for foraging,\nexploration and tracking. A key neuron pair in the C. elegans chemotaxis\nnetwork is the ASEL & ASER neuron pair, which capture the gradient of\nconcentration sensed by the worm in their graded membrane potentials. The\nprimary sensory neurons for our network are a pair of artificial spiking\nneurons that function as gradient detectors whose design is adapted from a\ncomputational model of the ASE neuron pair in C. elegans. Simulations show that\nour worm is able to detect the set-point with approximately four times higher\nprobability than the optimal memoryless Levy foraging model. We also show that\nour spiking neural network is much more efficient and noise-resilient while\nnavigating and tracking a contour, as compared to an equivalent non-spiking\nnetwork. We demonstrate that our model is extremely robust to noise and with\nslight modifications can be used for other practical applications such as\nobstacle avoidance. Our network model could also be extended for use in\nthree-dimensional contour tracking or obstacle avoidance.",
+         "id" : "http://arxiv.org/abs/1410.7881v1",
+         "summary_detail" : {
+            "base" : "",
+            "value" : "We develop an artificial neural circuit for contour tracking and navigation\ninspired by the chemotaxis of the nematode Caenorhabditis elegans. In order to\nharness the computational advantages spiking neural networks promise over their\nnon-spiking counterparts, we develop a network comprising 7-spiking neurons\nwith non-plastic synapses which we show is extremely robust in tracking a range\nof concentrations. Our worm uses information regarding local temporal gradients\nin sodium chloride concentration to decide the instantaneous path for foraging,\nexploration and tracking. A key neuron pair in the C. elegans chemotaxis\nnetwork is the ASEL & ASER neuron pair, which capture the gradient of\nconcentration sensed by the worm in their graded membrane potentials. The\nprimary sensory neurons for our network are a pair of artificial spiking\nneurons that function as gradient detectors whose design is adapted from a\ncomputational model of the ASE neuron pair in C. elegans. Simulations show that\nour worm is able to detect the set-point with approximately four times higher\nprobability than the optimal memoryless Levy foraging model. We also show that\nour spiking neural network is much more efficient and noise-resilient while\nnavigating and tracking a contour, as compared to an equivalent non-spiking\nnetwork. We demonstrate that our model is extremely robust to noise and with\nslight modifications can be used for other practical applications such as\nobstacle avoidance. Our network model could also be extended for use in\nthree-dimensional contour tracking or obstacle avoidance.",
+            "language" : null,
+            "type" : "text/plain"
+         },
+         "published" : "2014-10-29T05:54:22Z",
+         "links" : [
+            {
+               "type" : "text/html",
+               "rel" : "alternate",
+               "href" : "http://arxiv.org/abs/1410.7881v1"
+            },
+            {
+               "href" : "http://arxiv.org/pdf/1410.7881v1",
+               "title" : "pdf",
+               "type" : "application/pdf",
+               "rel" : "related"
+            }
+         ],
+         "author_detail" : {
+            "name" : "Bipin Rajendran"
+         },
+         "updated" : "2014-10-29T05:54:22Z",
+         "tags" : [
+            {
+               "term" : "cs.NE",
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "label" : null
+            },
+            {
+               "label" : null,
+               "term" : "q-bio.NC",
+               "scheme" : "http://arxiv.org/schemas/atom"
+            }
+         ],
+         "guidislink" : true,
+         "updated_parsed" : [
+            2014,
+            10,
+            29,
+            5,
+            54,
+            22,
+            2,
+            302,
+            0
+         ],
+         "author" : "Bipin Rajendran",
+         "authors" : [
+            {
+               "name" : "Shibani Santurkar"
+            },
+            {
+               "name" : "Bipin Rajendran"
+            }
+         ]
+      },
+      {
+         "guidislink" : true,
+         "tags" : [
+            {
+               "label" : null,
+               "term" : "q-bio.NC",
+               "scheme" : "http://arxiv.org/schemas/atom"
+            }
+         ],
+         "authors" : [
+            {
+               "name" : "Steven J. Husson"
+            },
+            {
+               "name" : "Alexander Gottschalk"
+            },
+            {
+               "name" : "Andrew M. Leifer"
+            }
+         ],
+         "author" : "Andrew M. Leifer",
+         "updated_parsed" : [
+            2013,
+            5,
+            9,
+            21,
+            33,
+            8,
+            3,
+            129,
+            0
+         ],
+         "arxiv_doi" : "10.1111/boc.201200069",
+         "arxiv_affiliation" : "Lewis-Sigler Institute for Integrative Genomics, Princeton University, USA",
+         "updated" : "2013-05-09T21:33:08Z",
+         "author_detail" : {
+            "name" : "Andrew M. Leifer"
+         },
+         "links" : [
+            {
+               "href" : "http://dx.doi.org/10.1111/boc.201200069",
+               "title" : "doi",
+               "type" : "text/html",
+               "rel" : "related"
+            },
+            {
+               "href" : "http://arxiv.org/abs/1303.2876v2",
+               "type" : "text/html",
+               "rel" : "alternate"
+            },
+            {
+               "title" : "pdf",
+               "type" : "application/pdf",
+               "rel" : "related",
+               "href" : "http://arxiv.org/pdf/1303.2876v2"
+            }
+         ],
+         "summary" : "The emerging field of optogenetics allows for optical activation or\ninhibition of neurons and other tissue in the nervous system. In 2005\noptogenetic proteins were expressed in the nematode C. elegans for the first\ntime. Since then, C. elegans has served as a powerful platform upon which to\nconduct optogenetic investigations of synaptic function, circuit dynamics and\nthe neuronal basis of behavior. The C. elegans nervous system, consisting of\n302 neurons, whose connectivity and morphology has been mapped completely,\ndrives a rich repertoire of behaviors that are quantifiable by video\nmicroscopy. This model organism's compact nervous system, quantifiable\nbehavior, genetic tractability and optical accessibility make it especially\namenable to optogenetic interrogation. Channelrhodopsin-2 (ChR2), halorhodopsin\n(NpHR/Halo) and other common optogenetic proteins have all been expressed in C.\nelegans. Moreover recent advances leveraging molecular genetics and patterned\nlight illumination have now made it possible to target photoactivation and\ninhibition to single cells and to do so in worms as they behave freely. Here we\ndescribe techniques and methods for optogenetic manipulation in C. elegans. We\nreview recent work using optogenetics and C. elegans for neuroscience\ninvestigations at the level of synapses, circuits and behavior.",
+         "id" : "http://arxiv.org/abs/1303.2876v2",
+         "published_parsed" : [
+            2013,
+            3,
+            12,
+            13,
+            33,
+            50,
+            1,
+            71,
+            0
+         ],
+         "title" : "Optogenetic manipulation of neural activity in C. elegans: from synapse\n  to circuits and behavior",
+         "published" : "2013-03-12T13:33:50Z",
+         "summary_detail" : {
+            "base" : "",
+            "language" : null,
+            "value" : "The emerging field of optogenetics allows for optical activation or\ninhibition of neurons and other tissue in the nervous system. In 2005\noptogenetic proteins were expressed in the nematode C. elegans for the first\ntime. Since then, C. elegans has served as a powerful platform upon which to\nconduct optogenetic investigations of synaptic function, circuit dynamics and\nthe neuronal basis of behavior. The C. elegans nervous system, consisting of\n302 neurons, whose connectivity and morphology has been mapped completely,\ndrives a rich repertoire of behaviors that are quantifiable by video\nmicroscopy. This model organism's compact nervous system, quantifiable\nbehavior, genetic tractability and optical accessibility make it especially\namenable to optogenetic interrogation. Channelrhodopsin-2 (ChR2), halorhodopsin\n(NpHR/Halo) and other common optogenetic proteins have all been expressed in C.\nelegans. Moreover recent advances leveraging molecular genetics and patterned\nlight illumination have now made it possible to target photoactivation and\ninhibition to single cells and to do so in worms as they behave freely. Here we\ndescribe techniques and methods for optogenetic manipulation in C. elegans. We\nreview recent work using optogenetics and C. elegans for neuroscience\ninvestigations at the level of synapses, circuits and behavior.",
+            "type" : "text/plain"
+         },
+         "title_detail" : {
+            "value" : "Optogenetic manipulation of neural activity in C. elegans: from synapse\n  to circuits and behavior",
+            "language" : null,
+            "type" : "text/plain",
+            "base" : ""
+         },
+         "arxiv_primary_category" : {
+            "term" : "q-bio.NC",
+            "scheme" : "http://arxiv.org/schemas/atom"
+         },
+         "arxiv_comment" : "28 pages, 3 figures. Accepted for publication in Biology of the Cell.\n  Available from publisher at\n  http://onlinelibrary.wiley.com/doi/10.1111/boc.201200069/abstract Princeton\n  University's Open Access Policy is at\n  http://www.princeton.edu/dof/policies/publ/fac/open-access-policy/",
+         "link" : "http://arxiv.org/abs/1303.2876v2"
+      },
+      {
+         "arxiv_comment" : "Connectivity patterns of neural network controlling C. elegans motion",
+         "link" : "http://arxiv.org/abs/1403.5185v1",
+         "title_detail" : {
+            "base" : "",
+            "type" : "text/plain",
+            "language" : null,
+            "value" : "Synaptic polarity of the interneuron circuit controlling C. elegans\n  locomotion"
+         },
+         "arxiv_primary_category" : {
+            "scheme" : "http://arxiv.org/schemas/atom",
+            "term" : "q-bio.NC"
+         },
+         "published" : "2014-03-20T16:00:56Z",
+         "summary_detail" : {
+            "base" : "",
+            "language" : null,
+            "value" : "C. elegans is the only animal for which a detailed neural connectivity\ndiagram has been constructed. However, synaptic polarities in this diagram, and\nthus, circuit functions are largely unknown. Here, we deciphered the likely\npolarities of 7 pre-motor neurons implicated in the control of worm's\nlocomotion, using a combination of experimental and computational tools. We\nperformed single and multiple laser ablations in the locomotor interneuron\ncircuit and recorded times the worms spent in forward and backward locomotion.\nWe constructed a theoretical model of the locomotor circuit and searched its\nall possible synaptic polarity combinations and sensory input patterns in order\nto find the best match to the timing data. The optimal solution is when either\nall or most of the interneurons are inhibitory and forward interneurons receive\nthe strongest input, which suggests that inhibition governs the dynamics of the\nlocomotor interneuron circuit. From the five pre-motor interneurons, only AVB\nand AVD are equally likely to be excitatory, i.e. they have probably similar\nnumber of inhibitory and excitatory connections to distant targets. The method\nused here has a general character and thus can be also applied to other neural\nsystems consisting of small functional networks.",
+            "type" : "text/plain"
+         },
+         "id" : "http://arxiv.org/abs/1403.5185v1",
+         "summary" : "C. elegans is the only animal for which a detailed neural connectivity\ndiagram has been constructed. However, synaptic polarities in this diagram, and\nthus, circuit functions are largely unknown. Here, we deciphered the likely\npolarities of 7 pre-motor neurons implicated in the control of worm's\nlocomotion, using a combination of experimental and computational tools. We\nperformed single and multiple laser ablations in the locomotor interneuron\ncircuit and recorded times the worms spent in forward and backward locomotion.\nWe constructed a theoretical model of the locomotor circuit and searched its\nall possible synaptic polarity combinations and sensory input patterns in order\nto find the best match to the timing data. The optimal solution is when either\nall or most of the interneurons are inhibitory and forward interneurons receive\nthe strongest input, which suggests that inhibition governs the dynamics of the\nlocomotor interneuron circuit. From the five pre-motor interneurons, only AVB\nand AVD are equally likely to be excitatory, i.e. they have probably similar\nnumber of inhibitory and excitatory connections to distant targets. The method\nused here has a general character and thus can be also applied to other neural\nsystems consisting of small functional networks.",
+         "title" : "Synaptic polarity of the interneuron circuit controlling C. elegans\n  locomotion",
+         "arxiv_journal_ref" : "Front. Comput. Neurosci. 7: 128 (2013)",
+         "published_parsed" : [
+            2014,
+            3,
+            20,
+            16,
+            0,
+            56,
+            3,
+            79,
+            0
+         ],
+         "updated" : "2014-03-20T16:00:56Z",
+         "author_detail" : {
+            "name" : "Jan Karbowski"
+         },
+         "links" : [
+            {
+               "type" : "text/html",
+               "title" : "doi",
+               "rel" : "related",
+               "href" : "http://dx.doi.org/10.3389/fncom.2013.00128"
+            },
+            {
+               "type" : "text/html",
+               "rel" : "alternate",
+               "href" : "http://arxiv.org/abs/1403.5185v1"
+            },
+            {
+               "type" : "application/pdf",
+               "rel" : "related",
+               "title" : "pdf",
+               "href" : "http://arxiv.org/pdf/1403.5185v1"
+            }
+         ],
+         "authors" : [
+            {
+               "name" : "Franciszek Rakowski"
+            },
+            {
+               "name" : "Jagan Srinivasan"
+            },
+            {
+               "name" : "Paul W. Sternberg"
+            },
+            {
+               "name" : "Jan Karbowski"
+            }
+         ],
+         "author" : "Jan Karbowski",
+         "updated_parsed" : [
+            2014,
+            3,
+            20,
+            16,
+            0,
+            56,
+            3,
+            79,
+            0
+         ],
+         "arxiv_doi" : "10.3389/fncom.2013.00128",
+         "guidislink" : true,
+         "tags" : [
+            {
+               "label" : null,
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "q-bio.NC"
+            }
+         ]
+      },
+      {
+         "updated" : "2013-01-06T16:01:24Z",
+         "author_detail" : {
+            "name" : "William R. Schafer"
+         },
+         "links" : [
+            {
+               "type" : "text/html",
+               "rel" : "alternate",
+               "href" : "http://arxiv.org/abs/1301.1017v1"
+            },
+            {
+               "href" : "http://arxiv.org/pdf/1301.1017v1",
+               "type" : "application/pdf",
+               "title" : "pdf",
+               "rel" : "related"
+            }
+         ],
+         "authors" : [
+            {
+               "name" : "André E. X. Brown"
+            },
+            {
+               "name" : "William R. Schafer"
+            }
+         ],
+         "author" : "William R. Schafer",
+         "updated_parsed" : [
+            2013,
+            1,
+            6,
+            16,
+            1,
+            24,
+            6,
+            6,
+            0
+         ],
+         "guidislink" : true,
+         "tags" : [
+            {
+               "label" : null,
+               "term" : "q-bio.QM",
+               "scheme" : "http://arxiv.org/schemas/atom"
+            },
+            {
+               "label" : null,
+               "term" : "physics.bio-ph",
+               "scheme" : "http://arxiv.org/schemas/atom"
+            }
+         ],
+         "arxiv_comment" : "Accepted for publication in \"Linking Phenotypes and Genotypes - How\n  to Infer Genetic Architecture from Perturbation Studies\", edited by Florian\n  Markowetz (Cambridge) and Michael Boutros (Heidelberg), Cambridge University\n  Press. 28 pages, 6 figures",
+         "link" : "http://arxiv.org/abs/1301.1017v1",
+         "title_detail" : {
+            "base" : "",
+            "value" : "Automated behavioural fingerprinting of C. elegans mutants",
+            "language" : null,
+            "type" : "text/plain"
+         },
+         "arxiv_primary_category" : {
+            "term" : "q-bio.QM",
+            "scheme" : "http://arxiv.org/schemas/atom"
+         },
+         "published" : "2013-01-06T16:01:24Z",
+         "summary_detail" : {
+            "value" : "Rapid advances in genetics, genomics, and imaging have given insight into the\nmolecular and cellular basis of behaviour in a variety of model organisms with\nunprecedented detail and scope. It is increasingly routine to isolate\nbehavioural mutants, clone and characterise mutant genes, and discern the\nmolecular and neural basis for a behavioural phenotype. Conversely, reverse\ngenetic approaches have made it possible to straightforwardly identify genes of\ninterest in whole-genome sequences and generate mutants that can be subjected\nto phenotypic analysis. In this latter approach, it is the phenotyping that\npresents the major bottleneck; when it comes to connecting phenotype to\ngenotype in freely behaving animals, analysis of behaviour itself remains\nsuperficial and time consuming. However, many proof-of-principle studies of\nautomated behavioural analysis over the last decade have poised the field on\nthe verge of exciting developments that promise to begin closing this gap.\n  In the broadest sense, our goal in this chapter is to explore what we can\nlearn about the genes involved in neural function by carefully observing\nbehaviour. This approach is rooted in model organism genetics but shares ideas\nwith ethology and neuroscience, as well as computer vision and bioinformatics.\nAfter introducing C. elegans as a model, we will survey the research that has\nled to the current state of the art in worm behavioural phenotyping and present\ncurrent research that is transforming our approach to behavioural genetics.",
+            "language" : null,
+            "type" : "text/plain",
+            "base" : ""
+         },
+         "summary" : "Rapid advances in genetics, genomics, and imaging have given insight into the\nmolecular and cellular basis of behaviour in a variety of model organisms with\nunprecedented detail and scope. It is increasingly routine to isolate\nbehavioural mutants, clone and characterise mutant genes, and discern the\nmolecular and neural basis for a behavioural phenotype. Conversely, reverse\ngenetic approaches have made it possible to straightforwardly identify genes of\ninterest in whole-genome sequences and generate mutants that can be subjected\nto phenotypic analysis. In this latter approach, it is the phenotyping that\npresents the major bottleneck; when it comes to connecting phenotype to\ngenotype in freely behaving animals, analysis of behaviour itself remains\nsuperficial and time consuming. However, many proof-of-principle studies of\nautomated behavioural analysis over the last decade have poised the field on\nthe verge of exciting developments that promise to begin closing this gap.\n  In the broadest sense, our goal in this chapter is to explore what we can\nlearn about the genes involved in neural function by carefully observing\nbehaviour. This approach is rooted in model organism genetics but shares ideas\nwith ethology and neuroscience, as well as computer vision and bioinformatics.\nAfter introducing C. elegans as a model, we will survey the research that has\nled to the current state of the art in worm behavioural phenotyping and present\ncurrent research that is transforming our approach to behavioural genetics.",
+         "id" : "http://arxiv.org/abs/1301.1017v1",
+         "published_parsed" : [
+            2013,
+            1,
+            6,
+            16,
+            1,
+            24,
+            6,
+            6,
+            0
+         ],
+         "title" : "Automated behavioural fingerprinting of C. elegans mutants"
+      },
+      {
+         "arxiv_doi" : "10.1371/journal.pone.0013914",
+         "updated_parsed" : [
+            2009,
+            12,
+            24,
+            0,
+            47,
+            57,
+            3,
+            358,
+            0
+         ],
+         "author" : "William S Ryu",
+         "authors" : [
+            {
+               "name" : "Greg J Stephens"
+            },
+            {
+               "name" : "Bethany Johnson-Kerner"
+            },
+            {
+               "name" : "William Bialek"
+            },
+            {
+               "name" : "William S Ryu"
+            }
+         ],
+         "tags" : [
+            {
+               "term" : "q-bio.NC",
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "label" : null
+            },
+            {
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "physics.bio-ph",
+               "label" : null
+            },
+            {
+               "label" : null,
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "q-bio.QM"
+            }
+         ],
+         "guidislink" : true,
+         "links" : [
+            {
+               "href" : "http://dx.doi.org/10.1371/journal.pone.0013914",
+               "title" : "doi",
+               "type" : "text/html",
+               "rel" : "related"
+            },
+            {
+               "href" : "http://arxiv.org/abs/0912.4760v1",
+               "type" : "text/html",
+               "rel" : "alternate"
+            },
+            {
+               "href" : "http://arxiv.org/pdf/0912.4760v1",
+               "type" : "application/pdf",
+               "title" : "pdf",
+               "rel" : "related"
+            }
+         ],
+         "author_detail" : {
+            "name" : "William S Ryu"
+         },
+         "updated" : "2009-12-24T00:47:57Z",
+         "summary_detail" : {
+            "value" : "Organisms move through the world by changing their shape, and here we explore\nthe mapping from shape space to movements in the nematode C. elegans as it\ncrawls on a planar agar surface. We characterize the statistics of the\ntrajectories through the correlation functions of the orientation angular\nvelocity, orientation angle and the mean-squared displacement, and we find that\nthe loss of orientational memory has significant contributions from both\nabrupt, large amplitude turning events and the continuous dynamics between\nthese events. Further, we demonstrate long-time persistence of orientational\nmemory in the intervals between abrupt turns. Building on recent work\ndemonstrating that C. elegans movements are restricted to a low-dimensional\nshape space, we construct a map from the dynamics in this shape space to the\ntrajectory of the worm along the agar. We use this connection to illustrate\nthat changes in the continuous dynamics reveal subtle differences in movement\nstrategy that occur among mutants defective in two classes of dopamine\nreceptors.",
+            "language" : null,
+            "type" : "text/plain",
+            "base" : ""
+         },
+         "published" : "2009-12-24T00:47:57Z",
+         "title" : "From modes to movement in the behavior of C. elegans",
+         "published_parsed" : [
+            2009,
+            12,
+            24,
+            0,
+            47,
+            57,
+            3,
+            358,
+            0
+         ],
+         "arxiv_journal_ref" : "PLoS ONE 5(11): e13914 (2010)",
+         "summary" : "Organisms move through the world by changing their shape, and here we explore\nthe mapping from shape space to movements in the nematode C. elegans as it\ncrawls on a planar agar surface. We characterize the statistics of the\ntrajectories through the correlation functions of the orientation angular\nvelocity, orientation angle and the mean-squared displacement, and we find that\nthe loss of orientational memory has significant contributions from both\nabrupt, large amplitude turning events and the continuous dynamics between\nthese events. Further, we demonstrate long-time persistence of orientational\nmemory in the intervals between abrupt turns. Building on recent work\ndemonstrating that C. elegans movements are restricted to a low-dimensional\nshape space, we construct a map from the dynamics in this shape space to the\ntrajectory of the worm along the agar. We use this connection to illustrate\nthat changes in the continuous dynamics reveal subtle differences in movement\nstrategy that occur among mutants defective in two classes of dopamine\nreceptors.",
+         "id" : "http://arxiv.org/abs/0912.4760v1",
+         "link" : "http://arxiv.org/abs/0912.4760v1",
+         "arxiv_primary_category" : {
+            "scheme" : "http://arxiv.org/schemas/atom",
+            "term" : "q-bio.NC"
+         },
+         "title_detail" : {
+            "base" : "",
+            "type" : "text/plain",
+            "value" : "From modes to movement in the behavior of C. elegans",
+            "language" : null
+         }
+      },
+      {
+         "links" : [
+            {
+               "type" : "text/html",
+               "rel" : "alternate",
+               "href" : "http://arxiv.org/abs/1609.03452v1"
+            },
+            {
+               "href" : "http://arxiv.org/pdf/1609.03452v1",
+               "type" : "application/pdf",
+               "title" : "pdf",
+               "rel" : "related"
+            }
+         ],
+         "author_detail" : {
+            "name" : "Jerzy Blawzdziewicz"
+         },
+         "updated" : "2016-09-12T15:44:20Z",
+         "updated_parsed" : [
+            2016,
+            9,
+            12,
+            15,
+            44,
+            20,
+            0,
+            256,
+            0
+         ],
+         "author" : "Jerzy Blawzdziewicz",
+         "authors" : [
+            {
+               "name" : "Alejandro Bilbao"
+            },
+            {
+               "name" : "Amar K. Patel"
+            },
+            {
+               "name" : "Mizanur Rahman"
+            },
+            {
+               "name" : "Siva A. Vanapalli"
+            },
+            {
+               "name" : "Jerzy Blawzdziewicz"
+            }
+         ],
+         "tags" : [
+            {
+               "label" : null,
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "physics.bio-ph"
+            }
+         ],
+         "guidislink" : true,
+         "link" : "http://arxiv.org/abs/1609.03452v1",
+         "arxiv_comment" : "14 pages, 16 figures",
+         "title_detail" : {
+            "value" : "Navigation of C. elegans in three-dimensional media: roll maneuvers and\n  planar turns",
+            "language" : null,
+            "type" : "text/plain",
+            "base" : ""
+         },
+         "arxiv_primary_category" : {
+            "scheme" : "http://arxiv.org/schemas/atom",
+            "term" : "physics.bio-ph"
+         },
+         "summary_detail" : {
+            "base" : "",
+            "language" : null,
+            "value" : "Free-living nematode Caenorhabditis elegans is a powerful genetic model,\nessential for investigations ranging from behavior to neuroscience to aging,\nand locomotion is a key observable used in these studies. However, despite the\nfact that in its natural environment C. elegans moves in three-dimensional (3D)\ncomplex media (decomposing organic matter and water), quantitative in\nvestigations of its locomotion have been limited to two-dimensional (2D)\nmotion. Based on our recent quantitative analysis of 2D turning maneuvers\n[Phys. Fluids 25, 081902 (2013)] we follow with the first quantitative\ndescription of how C. elegans moves in 3D environments. We show that by\nsuperposing body torsion and 2D undulations, a burrowing or swimming nematode\ncan rotate the undulation plane. A combination of these roll maneuvers and 2D\nturns associated with variation of undulation-wave parameters allows the\nnematode to explore 3D space. We apply our model to analyze 3D chemotaxis of\nnematodes burrowing in a gel and swimming in water; we conclude that the\nnematode can achieve efficient chemotaxis in different environments without\nadjusting its sensory-motor response to chemical signals. Implications of our\nfindings for understanding of 3D neuromuscular control of nematode body are\ndiscussed.",
+            "type" : "text/plain"
+         },
+         "published" : "2016-09-12T15:44:20Z",
+         "title" : "Navigation of C. elegans in three-dimensional media: roll maneuvers and\n  planar turns",
+         "published_parsed" : [
+            2016,
+            9,
+            12,
+            15,
+            44,
+            20,
+            0,
+            256,
+            0
+         ],
+         "summary" : "Free-living nematode Caenorhabditis elegans is a powerful genetic model,\nessential for investigations ranging from behavior to neuroscience to aging,\nand locomotion is a key observable used in these studies. However, despite the\nfact that in its natural environment C. elegans moves in three-dimensional (3D)\ncomplex media (decomposing organic matter and water), quantitative in\nvestigations of its locomotion have been limited to two-dimensional (2D)\nmotion. Based on our recent quantitative analysis of 2D turning maneuvers\n[Phys. Fluids 25, 081902 (2013)] we follow with the first quantitative\ndescription of how C. elegans moves in 3D environments. We show that by\nsuperposing body torsion and 2D undulations, a burrowing or swimming nematode\ncan rotate the undulation plane. A combination of these roll maneuvers and 2D\nturns associated with variation of undulation-wave parameters allows the\nnematode to explore 3D space. We apply our model to analyze 3D chemotaxis of\nnematodes burrowing in a gel and swimming in water; we conclude that the\nnematode can achieve efficient chemotaxis in different environments without\nadjusting its sensory-motor response to chemical signals. Implications of our\nfindings for understanding of 3D neuromuscular control of nematode body are\ndiscussed.",
+         "id" : "http://arxiv.org/abs/1609.03452v1"
+      },
+      {
+         "updated" : "2013-07-01T13:53:35Z",
+         "author_detail" : {
+            "name" : "A. Leshansky"
+         },
+         "links" : [
+            {
+               "href" : "http://dx.doi.org/10.1088/1367-2630/15/7/075022",
+               "rel" : "related",
+               "type" : "text/html",
+               "title" : "doi"
+            },
+            {
+               "type" : "text/html",
+               "rel" : "alternate",
+               "href" : "http://arxiv.org/abs/1307.0368v1"
+            },
+            {
+               "title" : "pdf",
+               "type" : "application/pdf",
+               "rel" : "related",
+               "href" : "http://arxiv.org/pdf/1307.0368v1"
+            }
+         ],
+         "guidislink" : true,
+         "tags" : [
+            {
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "physics.flu-dyn",
+               "label" : null
+            }
+         ],
+         "authors" : [
+            {
+               "name" : "R. Berman"
+            },
+            {
+               "name" : "O. Kenneth"
+            },
+            {
+               "name" : "J. Sznitman"
+            },
+            {
+               "name" : "A. Leshansky"
+            }
+         ],
+         "author" : "A. Leshansky",
+         "updated_parsed" : [
+            2013,
+            7,
+            1,
+            13,
+            53,
+            35,
+            0,
+            182,
+            0
+         ],
+         "arxiv_doi" : "10.1088/1367-2630/15/7/075022",
+         "arxiv_primary_category" : {
+            "term" : "physics.flu-dyn",
+            "scheme" : "http://arxiv.org/schemas/atom"
+         },
+         "title_detail" : {
+            "base" : "",
+            "type" : "text/plain",
+            "value" : "Undulatory locomotion of finite filaments: lessons from C. elegans",
+            "language" : null
+         },
+         "arxiv_comment" : "Accepted for publication in New J. Phys",
+         "link" : "http://arxiv.org/abs/1307.0368v1",
+         "summary" : "Undulatory swimming is a widespread propulsion strategy adopted by many\nsmall-scale organisms including various single-cell eukaryotes and nematodes.\nIn this work, we report a comprehensive study of undulatory locomotion of a\nfinite filament using (i) approximate resistive force theory (RFT) assuming a\nlocal nature of hydrodynamic interaction between the filament and the\nsurrounding viscous liquid, and (ii) particle-based numerical computations\ntaking into account the intra-filament hydrodynamic interaction. Using the\nubiquitous model of a propagating sinusoidal waveform, we identify the limit of\napplicability of the RFT and determine the optimal propulsion gait in terms of\n(i) swimming distance per period of undulation and (ii) hydrodynamic propulsion\nefficiency. The occurrence of the optimal swimming gait maximizing hydrodynamic\nefficiency at finite wavelength in particle-based computations diverges from\nthe prediction of the RFT. To compare the model swimmer powered by sine wave\nundulations to biological undulatory swimmers, we apply the particle-based\napproach to study locomotion of the model organism nematode Caenorhabditis\nelegans using the swimming gait extracted from experiments. The analysis\nreveals that even though the amplitude and the wavenumber of undulations are\nsimilar to those determined for the best performing sinusoidal swimmer, C.\nelegans overperforms the latter in terms of both displacement and hydrodynamic\nefficiency. Further comparison with other undulatory microorganisms reveals\nthat many adopt waveforms with characteristics similar to the optimal model\nswimmer, yet real swimmers still manage to beat the best performing sine-wave\nswimmer in terms of distance covered per period. Overall our results underline\nthe importance of further waveform optimization, as periodic undulations\nadopted by C. elegans and other organisms deviate considerably from a simple\nsine wave.",
+         "id" : "http://arxiv.org/abs/1307.0368v1",
+         "published_parsed" : [
+            2013,
+            7,
+            1,
+            13,
+            53,
+            35,
+            0,
+            182,
+            0
+         ],
+         "title" : "Undulatory locomotion of finite filaments: lessons from C. elegans",
+         "published" : "2013-07-01T13:53:35Z",
+         "summary_detail" : {
+            "language" : null,
+            "value" : "Undulatory swimming is a widespread propulsion strategy adopted by many\nsmall-scale organisms including various single-cell eukaryotes and nematodes.\nIn this work, we report a comprehensive study of undulatory locomotion of a\nfinite filament using (i) approximate resistive force theory (RFT) assuming a\nlocal nature of hydrodynamic interaction between the filament and the\nsurrounding viscous liquid, and (ii) particle-based numerical computations\ntaking into account the intra-filament hydrodynamic interaction. Using the\nubiquitous model of a propagating sinusoidal waveform, we identify the limit of\napplicability of the RFT and determine the optimal propulsion gait in terms of\n(i) swimming distance per period of undulation and (ii) hydrodynamic propulsion\nefficiency. The occurrence of the optimal swimming gait maximizing hydrodynamic\nefficiency at finite wavelength in particle-based computations diverges from\nthe prediction of the RFT. To compare the model swimmer powered by sine wave\nundulations to biological undulatory swimmers, we apply the particle-based\napproach to study locomotion of the model organism nematode Caenorhabditis\nelegans using the swimming gait extracted from experiments. The analysis\nreveals that even though the amplitude and the wavenumber of undulations are\nsimilar to those determined for the best performing sinusoidal swimmer, C.\nelegans overperforms the latter in terms of both displacement and hydrodynamic\nefficiency. Further comparison with other undulatory microorganisms reveals\nthat many adopt waveforms with characteristics similar to the optimal model\nswimmer, yet real swimmers still manage to beat the best performing sine-wave\nswimmer in terms of distance covered per period. Overall our results underline\nthe importance of further waveform optimization, as periodic undulations\nadopted by C. elegans and other organisms deviate considerably from a simple\nsine wave.",
+            "type" : "text/plain",
+            "base" : ""
+         }
+      },
+      {
+         "author" : "Greg J Stephens",
+         "arxiv_doi" : "10.7554/eLife.17227",
+         "updated_parsed" : [
+            2016,
+            3,
+            13,
+            12,
+            38,
+            1,
+            6,
+            73,
+            0
+         ],
+         "authors" : [
+            {
+               "name" : "Onno D Broekmans"
+            },
+            {
+               "name" : "Jarlath B Rodgers"
+            },
+            {
+               "name" : "William S Ryu"
+            },
+            {
+               "name" : "Greg J Stephens"
+            }
+         ],
+         "tags" : [
+            {
+               "label" : null,
+               "term" : "q-bio.QM",
+               "scheme" : "http://arxiv.org/schemas/atom"
+            },
+            {
+               "term" : "physics.bio-ph",
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "label" : null
+            },
+            {
+               "label" : null,
+               "scheme" : "http://arxiv.org/schemas/atom",
+               "term" : "q-bio.NC"
+            }
+         ],
+         "guidislink" : true,
+         "author_detail" : {
+            "name" : "Greg J Stephens"
+         },
+         "links" : [
+            {
+               "href" : "http://dx.doi.org/10.7554/eLife.17227",
+               "rel" : "related",
+               "type" : "text/html",
+               "title" : "doi"
+            },
+            {
+               "href" : "http://arxiv.org/abs/1603.04023v1",
+               "type" : "text/html",
+               "rel" : "alternate"
+            },
+            {
+               "rel" : "related",
+               "type" : "application/pdf",
+               "title" : "pdf",
+               "href" : "http://arxiv.org/pdf/1603.04023v1"
+            }
+         ],
+         "updated" : "2016-03-13T12:38:01Z",
+         "published" : "2016-03-13T12:38:01Z",
+         "summary_detail" : {
+            "language" : null,
+            "value" : "We exploit the reduced space of C. elegans postures to develop a novel\ntracking algorithm which captures both simple shapes and also self-occluding\ncoils, an important, yet unexplored, component of worm behavior. We apply our\nalgorithm to show that visually complex, coiled sequences are a superposition\nof two simpler patterns: the body wave dynamics and a head-curvature pulse. We\ndemonstrate the precise coiled dynamics of an escape response and uncover new\nbehaviors in spontaneous, large amplitude coils; deep reorientations occur\nthrough classical Omega-shaped postures and also through larger, new postural\nexcitations which we label here as delta-turns. We find that omega and delta\nturns occur independently, the serpentine analog of a random left-right step,\nsuggesting a distinct triggering mechanism. We also show that omega and delta\nturns display approximately equal rates and adapt to food-free conditions on a\nsimilar timescale, a simple strategy to avoid navigational bias.",
+            "type" : "text/plain",
+            "base" : ""
+         },
+         "summary" : "We exploit the reduced space of C. elegans postures to develop a novel\ntracking algorithm which captures both simple shapes and also self-occluding\ncoils, an important, yet unexplored, component of worm behavior. We apply our\nalgorithm to show that visually complex, coiled sequences are a superposition\nof two simpler patterns: the body wave dynamics and a head-curvature pulse. We\ndemonstrate the precise coiled dynamics of an escape response and uncover new\nbehaviors in spontaneous, large amplitude coils; deep reorientations occur\nthrough classical Omega-shaped postures and also through larger, new postural\nexcitations which we label here as delta-turns. We find that omega and delta\nturns occur independently, the serpentine analog of a random left-right step,\nsuggesting a distinct triggering mechanism. We also show that omega and delta\nturns display approximately equal rates and adapt to food-free conditions on a\nsimilar timescale, a simple strategy to avoid navigational bias.",
+         "id" : "http://arxiv.org/abs/1603.04023v1",
+         "published_parsed" : [
+            2016,
+            3,
+            13,
+            12,
+            38,
+            1,
+            6,
+            73,
+            0
+         ],
+         "arxiv_journal_ref" : "eLife 2016;5:e17227",
+         "title" : "Resolving coiled shapes reveals new reorientation behaviors in C.\n  elegans",
+         "link" : "http://arxiv.org/abs/1603.04023v1",
+         "arxiv_comment" : "14 pages and 8 figures, including supplementary information",
+         "title_detail" : {
+            "value" : "Resolving coiled shapes reveals new reorientation behaviors in C.\n  elegans",
+            "language" : null,
+            "type" : "text/plain",
+            "base" : ""
+         },
+         "arxiv_primary_category" : {
+            "scheme" : "http://arxiv.org/schemas/atom",
+            "term" : "q-bio.QM"
+         }
+      }
+   ]
+}
