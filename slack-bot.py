@@ -1,11 +1,15 @@
 import os
+import re
 from arxiv_cli import Client as ArxivClient
 from slackclient import SlackClient
 from urllib.parse import quote_plus as urlquote_plus
 
+from wsgiref.simple_server import make_server
+from pyramid.config import Configurator
+from pyramid.response import Response
+
 api_key = os.environ['SLACK_API_KEY']
 
-sc = SlackClient(api_key)
 
 # # Post a message
 # c.api_call('chat.postEphemeral',
@@ -156,10 +160,66 @@ class ArxivPublicationEvent(PublicationEvent):
             return MessageFragment(UnicodeStringContent(str(self)), content_type)
 
 
-aq = ArxivQuery('ti:C and ti:elegans or abs:C and abs:elegans')
-r = aq.execute()
+class Duration(object):
+    """ A span of time """
 
-for pe in r.events():
+
+class Period(object):
+    """ A duration with an implicit cycle """
+
+
+class Schedule(object):
+    """ A schedule. A set of Periods, each with a start and end date-time """
+
+
+class SearchScheduler(object):
+    """ Schedules searches to be performed at regular intervals """
+
+    def schedule(query, sched):
+        """ add a search schedule for the given query """
+
+
+def send_message(channel, s):
+    sc = SlackClient(api_key)
     sc.api_call('chat.postMessage',
                 channel='#bot-test',
-                text=pe.msg_format(SlackMessageContent).render())
+                text=s)
+
+
+MSG_RGX = re.compile(r'search for (?P<query>.*) on (?P<target>.*)')
+
+
+def hello_world(request):
+    bod = request.json_body
+    msg = bod['event']['text']
+    # send_message(bod['event']['channel'],
+                 # 'Hey, <@{}>, you sent me a message: Good for you!'.format(bod['event']['user']))
+    # Parsing natural language with regex: what could go wrong?
+    md = MSG_RGX.search(msg)
+    if md:
+        send_message(bod['event']['channel'],
+                     'OK, <@{}>, I\'ll do that...NOT :P'.format(bod['event']['user']))
+    else:
+        send_message(bod['event']['channel'],
+                     'Sorry, <@{}>, I can\'t do that'.format(bod['event']['user']))
+    return Response('')
+
+
+if __name__ == '__main__':
+    with Configurator() as config:
+        config.add_route('hello', '/events')
+        config.add_view(hello_world, route_name='hello')
+        app = config.make_wsgi_app()
+
+    server = make_server('0.0.0.0', 8080, app)
+    server.serve_forever()
+
+    # sc = SlackClient(api_key)
+
+    # aq = ArxivQuery('ti:C and ti:elegans or abs:C and abs:elegans')
+    # r = aq.execute()
+
+    # for pe in r.events():
+        # sc.api_call('chat.postMessage',
+                    # channel='#bot-test',
+                    # text=pe.msg_format(SlackMessageContent).render())

@@ -118,3 +118,4 @@ def test_post_link_no_unfurled_links():
                    unfurl_links=False,
                    text='http://example.org')
     assert x['ok']
+
