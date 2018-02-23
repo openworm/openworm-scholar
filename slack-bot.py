@@ -186,7 +186,15 @@ def send_message(channel, s):
                 text=s)
 
 
-MSG_RGX = re.compile(r'search for (?P<query>.*) on (?P<target>.*)')
+SEARCH_TARGET_NAMES = ['Arxiv', 'PubMed']
+AND_OR_COMMA_RGX_STR = r'(\s*,?\s+and\s+|\s*,\s*)'
+PLACES_RGX_STR = "({})".format("|".join(re.escape(nom) for nom in SEARCH_TARGET_NAMES))
+MSG_RGX_STR = r'''search \s+ for \s+ (?P<query>.*)\s+
+                  (on|at) \s+ (?P<targets>{places} ( {and_or_comma} {places})*)
+                  (\s+(?P<schedule> .+?))?$'''.format(places=PLACES_RGX_STR,
+                                                      and_or_comma=AND_OR_COMMA_RGX_STR)
+MSG_RGX = re.compile(MSG_RGX_STR, flags=re.VERBOSE | re.IGNORECASE)
+print(MSG_RGX)
 
 
 def hello_world(request):
@@ -194,11 +202,21 @@ def hello_world(request):
     msg = bod['event']['text']
     # send_message(bod['event']['channel'],
                  # 'Hey, <@{}>, you sent me a message: Good for you!'.format(bod['event']['user']))
-    # Parsing natural language with regex: what could go wrong?
+    # Parsing natural language with regex...we can add a context free grammar later...
     md = MSG_RGX.search(msg)
     if md:
+        tgts = re.split(AND_OR_COMMA_RGX_STR, md.group('targets'))
+        found_tgts = []
+        for t in tgts:
+            for s in SEARCH_TARGET_NAMES:
+                if s.lower() == t.lower():
+                    found_tgts.append(s)
+
         send_message(bod['event']['channel'],
-                     'OK, <@{}>, I\'ll do that...NOT :P'.format(bod['event']['user']))
+                     'OK, <@{}>, I will search for "{}" on {} with a schedule of "{}"'.format(bod['event']['user'],
+                                                                                              md.group('query'),
+                                                                                              ", ".join(found_tgts),
+                                                                                              md.group('schedule')))
     else:
         send_message(bod['event']['channel'],
                      'Sorry, <@{}>, I can\'t do that'.format(bod['event']['user']))
