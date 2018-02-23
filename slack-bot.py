@@ -8,6 +8,12 @@ from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
 from pyramid.response import Response
 
+from recurrent import RecurringEvent
+from datetime import datetime
+from pytz import timezone
+import time
+
+
 api_key = os.environ['SLACK_API_KEY']
 
 
@@ -179,6 +185,17 @@ class SearchScheduler(object):
         """ add a search schedule for the given query """
 
 
+class User(object):
+    def __init__(self):
+        self.time_zone = None
+
+class SlackUser(User):
+    def __init__(self, slack_ob, *args, **kwargs):
+        super(SlackUser, self).__init__(*args, **kwargs)
+        self._slack_ob = slack_ob
+        self.time_zone = slack_ob['tz']
+
+
 def send_message(channel, s):
     sc = SlackClient(api_key)
     sc.api_call('chat.postMessage',
@@ -197,11 +214,17 @@ MSG_RGX = re.compile(MSG_RGX_STR, flags=re.VERBOSE | re.IGNORECASE)
 print(MSG_RGX)
 
 
-def hello_world(request):
+def slack_events(request):
+    print(request)
     bod = request.json_body
-    msg = bod['event']['text']
-    # send_message(bod['event']['channel'],
-                 # 'Hey, <@{}>, you sent me a message: Good for you!'.format(bod['event']['user']))
+    evt = bod['event']
+    msg = evt['text']
+    edited = evt.get('edited')
+    if edited:
+        user_ts = edited['ts']
+    else:
+        user_ts = evt['ts']
+    user_ts = float(user_ts)
     # Parsing natural language with regex...we can add a context free grammar later...
     md = MSG_RGX.search(msg)
     if md:
@@ -211,22 +234,27 @@ def hello_world(request):
             for s in SEARCH_TARGET_NAMES:
                 if s.lower() == t.lower():
                     found_tgts.append(s)
-
-        send_message(bod['event']['channel'],
-                     'OK, <@{}>, I will search for "{}" on {} with a schedule of "{}"'.format(bod['event']['user'],
+        sc = SlackClient(api_key)
+        res = sc.api_call('users.info',
+                          user=evt['user'])
+        tz = timezone(res['user']['tz'])
+        sched = RecurringEvent(now_date=datetime.fromtimestamp(user_ts, tz))
+        rrule = sched.parse(md.group('schedule'))
+        send_message(evt['channel'],
+                     'OK, <@{}>, I will search for "{}" on {} with a schedule of "{}"'.format(evt['user'],
                                                                                               md.group('query'),
                                                                                               ", ".join(found_tgts),
-                                                                                              md.group('schedule')))
+                                                                                              str(rrule)))
     else:
-        send_message(bod['event']['channel'],
-                     'Sorry, <@{}>, I can\'t do that'.format(bod['event']['user']))
+        send_message(evt['channel'],
+                     'Sorry, <@{}>, I can\'t do that'.format(evt['user']))
     return Response('')
 
 
 if __name__ == '__main__':
     with Configurator() as config:
         config.add_route('hello', '/events')
-        config.add_view(hello_world, route_name='hello')
+        config.add_view(slack_events, route_name='hello')
         app = config.make_wsgi_app()
 
     server = make_server('0.0.0.0', 8080, app)
