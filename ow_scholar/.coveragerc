@@ -1,0 +1,3 @@
+[run]
+source = ow_scholar
+omit = ow_scholar/test*

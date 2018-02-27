@@ -11,10 +11,10 @@ from pyramid.response import Response
 from recurrent import RecurringEvent
 from datetime import datetime
 from pytz import timezone
-import time
+from subprocess import Popen, PIPE as subproc_PIPE
 
 
-api_key = os.environ['SLACK_API_KEY']
+api_key = os.environ.get('SLACK_API_KEY')
 
 
 # # Post a message
@@ -189,6 +189,7 @@ class User(object):
     def __init__(self):
         self.time_zone = None
 
+
 class SlackUser(User):
     def __init__(self, slack_ob, *args, **kwargs):
         super(SlackUser, self).__init__(*args, **kwargs)
@@ -196,11 +197,16 @@ class SlackUser(User):
         self.time_zone = slack_ob['tz']
 
 
-def send_message(channel, s):
-    sc = SlackClient(api_key)
+def send_message(api_key_or_client, channel, s, thread=None):
+    if isinstance(api_key, str):
+        sc = SlackClient(api_key)
+    else:
+        sc = api_key_or_client
+    print('sending to thread', thread)
     sc.api_call('chat.postMessage',
-                channel='#bot-test',
-                text=s)
+                channel=channel,
+                text=s,
+                **{'thread_ts': x for x in (thread,) if thread})
 
 
 SEARCH_TARGET_NAMES = ['Arxiv', 'PubMed']
@@ -210,13 +216,18 @@ MSG_RGX_STR = r'''search \s+ for \s+ (?P<query>.*)\s+
                   (on|at) \s+ (?P<targets>{places} ( {and_or_comma} {places})*)
                   (\s+(?P<schedule> .+?))?$'''.format(places=PLACES_RGX_STR,
                                                       and_or_comma=AND_OR_COMMA_RGX_STR)
+
 MSG_RGX = re.compile(MSG_RGX_STR, flags=re.VERBOSE | re.IGNORECASE)
-print(MSG_RGX)
 
 
 def slack_events(request):
-    print(request)
+    print(SlackClient)
+    print(request.environ, dir(request))
     bod = request.json_body
+    bot_token = request.environ.get('SLACK_BOT_TOKEN')
+    if bod['token'] != bot_token:
+        return
+
     evt = bod['event']
     msg = evt['text']
     edited = evt.get('edited')
@@ -224,6 +235,16 @@ def slack_events(request):
         user_ts = edited['ts']
     else:
         user_ts = evt['ts']
+
+    print('headers', dict(request.headers))
+    retry_count = request.headers.get('X-Slack-Retry-Num')
+    if retry_count is not None and int(retry_count) > 0:
+        thread = evt['ts']
+    else:
+        thread = None
+
+    slack_api_key = request.environ.get('SLACK_API_KEY')
+    slack_client = SlackClient(slack_api_key)
     user_ts = float(user_ts)
     # Parsing natural language with regex...we can add a context free grammar later...
     md = MSG_RGX.search(msg)
@@ -234,27 +255,29 @@ def slack_events(request):
             for s in SEARCH_TARGET_NAMES:
                 if s.lower() == t.lower():
                     found_tgts.append(s)
-        sc = SlackClient(api_key)
-        res = sc.api_call('users.info',
-                          user=evt['user'])
+        res = slack_client.api_call('users.info', user=evt['user'])
         tz = timezone(res['user']['tz'])
         sched = RecurringEvent(now_date=datetime.fromtimestamp(user_ts, tz))
         rrule = sched.parse(md.group('schedule'))
-        send_message(evt['channel'],
-                     'OK, <@{}>, I will search for "{}" on {} with a schedule of "{}"'.format(evt['user'],
-                                                                                              md.group('query'),
-                                                                                              ", ".join(found_tgts),
-                                                                                              str(rrule)))
+        reply = 'OK, <@{}>, I will search for "{}" on {} with a schedule of "{}"'
+        reply = reply.format(evt['user'],
+                             md.group('query'),
+                             ", ".join(found_tgts),
+                             str(rrule))
     else:
-        send_message(evt['channel'],
-                     'Sorry, <@{}>, I can\'t do that'.format(evt['user']))
+        with Popen(["fortune"], stdout=subproc_PIPE) as proc:
+            fortune = proc.stdout.read().decode('utf-8')
+        reply = 'Sorry, <@{}>, I don\'t know about that, but think about this:\n{}'
+        reply = reply.format(evt['user'], fortune)
+
+    send_message(slack_client, evt['channel'], reply, thread)
     return Response('')
 
 
 if __name__ == '__main__':
     with Configurator() as config:
-        config.add_route('hello', '/events')
-        config.add_view(slack_events, route_name='hello')
+        config.add_route('slack_events', '/events')
+        config.add_view(slack_events, route_name='slack_events')
         app = config.make_wsgi_app()
 
     server = make_server('0.0.0.0', 8080, app)
