@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch, ANY
+from unittest.mock import MagicMock, patch, ANY, DEFAULT
 
 import random
 from pyramid import testing
@@ -39,35 +39,48 @@ class Contains(object):
         return self.s
 
 
-@patch.object(slack_bot, 'SlackClient')
 class ViewTests(unittest.TestCase):
+
+    def __init__(self, *args, **kwargs):
+        super(ViewTests, self).__init__(*args, **kwargs)
+        self.patchers = []
+
+    def patch_object(self, ob, attr):
+        patcher = patch.object(ob, attr)
+        self.patchers.append(patcher)
+        return patcher.start()
+
     def setUp(self):
+        self.mock_os = self.patch_object(slack_bot, 'os')
+        self.mock_slack = self.patch_object(slack_bot, 'SlackClient')
         self.config = testing.setUp()
         self.bot_token = 'bottok'
+        self.mock_os.environ = {'SLACK_API_KEY': 'key', 'SLACK_BOT_TOKEN': self.bot_token}
+        self.uname = 'Uh092hp20h'
+        request = MagicMock()
+        request.headers = {}
+        request.json_body = {'token': self.bot_token,
+                'event': {'text': 'blah', 'ts': '1.0', 'user': self.uname, 'channel': 'chan'}}
+        self.mock_request = request
 
     def tearDown(self):
+        for p in self.patchers:
+            p.stop()
         testing.tearDown()
 
-    def test_message_sent_to_user_at_channel_1(self, mock_slack):
-        request = MagicMock()
-        request.environ = {'SLACK_API_KEY': 'key', 'SLACK_BOT_TOKEN': self.bot_token}
-        request.headers = {}
-        uname = 'Uh092hp20h'
-        request.json_body = {'token': self.bot_token,
-                'event': {'text': 'blah', 'ts': '1.0', 'user': uname, 'channel': 'chan'}}
-        slack_events(request)
-        mock_slack().api_call.assert_called_with('chat.postMessage', channel='chan', text=Contains('<@'+uname+'>'))
-        print(mock_slack.mock_calls)
+    def test_message_sent_to_user_at_channel_1(self):
+        slack_events(self.mock_request)
+        self.mock_slack().api_call.assert_called_with('chat.postMessage', channel='chan', text=Contains('<@'+self.uname+'>'))
 
-    def test_message_sent_to_user_at_channel_2(self, mock_slack):
-        request = MagicMock()
-        request.environ = {'SLACK_API_KEY': 'key', 'SLACK_BOT_TOKEN': self.bot_token}
-        request.headers = {}
-        uname = 'Uh092hp20h'
+    def test_message_sent_to_user_at_channel_2(self):
         target = random.choice(slack_bot.SEARCH_TARGET_NAMES)
         msg = 'Search for grapes at ' + target
-        request.json_body = {'token': self.bot_token,
-                'event': {'text': msg, 'ts': '1.0', 'user': uname, 'channel': 'chan'}}
-        slack_events(request)
-        mock_slack().api_call.assert_called_with('chat.postMessage', channel='chan', text=Contains('<@'+uname+'>'))
-        print(mock_slack.mock_calls)
+        self.mock_request.json_body['event']['text'] = msg
+        def call(message, user=None, **kwargs):
+            if message == 'users.info' and user is not None:
+                return {'user':{'tz': 'America/Chicago'}}
+            else:
+                return DEFAULT
+        self.mock_slack().api_call.side_effect = call
+        slack_events(self.mock_request)
+        self.mock_slack().api_call.assert_called_with('chat.postMessage', channel='chan', text=Contains('<@'+self.uname+'>'))

@@ -221,12 +221,13 @@ MSG_RGX = re.compile(MSG_RGX_STR, flags=re.VERBOSE | re.IGNORECASE)
 
 
 def slack_events(request):
-    print(SlackClient)
-    print(request.environ, dir(request))
+    # print(SlackClient)
+    # print(request.environ, dir(request))
+    # print(request.context)
     bod = request.json_body
-    bot_token = request.environ.get('SLACK_BOT_TOKEN')
+    bot_token = os.environ.get('SLACK_BOT_TOKEN')
     if bod['token'] != bot_token:
-        return
+        return Response(status=304)
 
     evt = bod['event']
     msg = evt['text']
@@ -243,7 +244,7 @@ def slack_events(request):
     else:
         thread = None
 
-    slack_api_key = request.environ.get('SLACK_API_KEY')
+    slack_api_key = os.environ.get('SLACK_API_KEY')
     slack_client = SlackClient(slack_api_key)
     user_ts = float(user_ts)
     # Parsing natural language with regex...we can add a context free grammar later...
