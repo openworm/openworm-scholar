@@ -9,22 +9,21 @@ from pyramid.config import Configurator
 from pyramid.response import Response
 
 from recurrent import RecurringEvent
+from dateutil.rrule import rrulestr
 from datetime import datetime
 from pytz import timezone
 from subprocess import Popen, PIPE as subproc_PIPE
+from sched import scheduler
+from time import time, sleep
+from threading import Thread
+
+import persistent
+from persistent import Persistent
+from persistent.list import PersistentList
+from persistent.dict import PersistentDict
 
 
 api_key = os.environ.get('SLACK_API_KEY')
-
-
-# # Post a message
-# c.api_call('chat.postEphemeral',
-           # channel='#bot-test',
-           # text='Hello world')
-
-# c.api_call('chat.postEphemeral',
-           # channel='#bot-test',
-           # text='Hello world')
 
 
 class Content(object):
@@ -83,7 +82,7 @@ class MessageFragment(object):
         return self.frag.render()
 
 
-class Query(object):
+class Query(Persistent):
     def msg_format(self, content_type):
         """ Returns a MessageFragment in the format given """
         return MessageFragment(content_type(content_type.quote(str(self))), content_type)
@@ -107,8 +106,20 @@ class ArxivQuery(Query):
             return super(ArxivQuery, self).msg_format(content_type)
 
     def execute(self):
+        print("running arxiv query for: " + self.search_query)
         r = self._client.find(self.search_query)
         return ArxivQueryResponse(r, self)
+
+    def validate(self):
+        return True
+
+
+class PubmedQuery(Query):
+    def __init__(self, s):
+        self.search_query = s
+
+    def validate(self):
+        return True
 
 
 class Author(object):
@@ -178,11 +189,100 @@ class Schedule(object):
     """ A schedule. A set of Periods, each with a start and end date-time """
 
 
-class SearchScheduler(object):
+class SearchSchedule(object):
+    """ A schedule for searches """
+
+    def __init__(self, query, sched):
+        """ add a search schedule for the given query """
+        self.query = query
+        self.sched = sched
+
+
+class SearchScheduler(Persistent):
     """ Schedules searches to be performed at regular intervals """
 
-    def schedule(query, sched):
+    def add_schedule(self, query, sched, handler):
         """ add a search schedule for the given query """
+
+
+def query_event(sched, search_sched, event_handler, priority=0):
+    print("query_event", search_sched, event_handler, priority)
+    def run():
+        print("run", search_sched, event_handler, priority)
+        response = search_sched.query.execute()
+        for evt in response.events():
+            event_handler(evt)
+        query_event(sched, search_sched, event_handler, priority)
+    now = datetime.now()
+    delay = search_sched.sched.after(now) - now
+    sched.enter(delay.total_seconds(), priority, run, ())
+    return run
+
+
+class EventHandler(object):
+    """ Handles events, yo """
+    def __call__(self, event):
+        print("Handling event")
+        print(event)
+
+
+class ListSearchScheduler(SearchScheduler):
+
+    def __init__(self, sched_list=None, timefunc=time, delayfunc=sleep, **kwargs):
+        super(ListSearchScheduler, self).__init__(**kwargs)
+        if sched_list is None:
+            sched_list = []
+        self._list = PersistentList(sched_list)
+        self._v_timefunc = timefunc
+        self._v_delayfunc = delayfunc
+        self._v_thread = None
+        self._v_sched = None
+        self._v_is_running = False
+
+    @property
+    def timefunc(self):
+        if not self._v_timefunc:
+            self._v_timefunc = time
+        return self._v_timefunc
+
+    @property
+    def delayfunc(self):
+        if not self._v_delayfunc:
+            self._v_delayfunc = sleep
+        return self._v_delayfunc
+
+    def add_schedule(self, query, sched, handler):
+        self._list.append((SearchSchedule(query, sched), handler))
+
+    def run(self):
+        self._v_sched = scheduler(self.timefunc, self.delayfunc)
+        for s, handler in self._list:
+            query_event(self._v_sched, s, handler)
+
+        def runner():
+            self._v_is_running = True
+            try:
+                self._v_sched.run()
+            finally:
+                self._v_is_running = False
+        self._v_thread = Thread(target=runner)
+        self._v_thread.start()
+
+    @property
+    def is_running(self):
+        if not hasattr(self, '_v_is_running'):
+            self._v_is_running = False
+
+        return self._v_is_running
+
+    def stop(self):
+        if self._v_sched is None:
+            return
+        self._v_sched = None
+        while not self._v_sched.empty():
+            for evt in self._v_sched.queue:
+                self._v_sched.cancel(evt)
+        self._v_thread.join()
 
 
 class User(object):
@@ -209,7 +309,10 @@ def send_message(api_key_or_client, channel, s, thread=None):
                 **{'thread_ts': x for x in (thread,) if thread})
 
 
-SEARCH_TARGET_NAMES = ['Arxiv', 'PubMed']
+SEARCH_TARGETS = {'Arxiv': {'query_type': ArxivQuery},
+                  'PubMed': {'query_type': PubmedQuery}}
+
+SEARCH_TARGET_NAMES = list(SEARCH_TARGETS.keys())
 AND_OR_COMMA_RGX_STR = r'(\s*,?\s+and\s+|\s*,\s*)'
 PLACES_RGX_STR = "({})".format("|".join(re.escape(nom) for nom in SEARCH_TARGET_NAMES))
 MSG_RGX_STR = r'''search \s+ for \s+ (?P<query>.*)\s+
@@ -218,6 +321,13 @@ MSG_RGX_STR = r'''search \s+ for \s+ (?P<query>.*)\s+
                                                       and_or_comma=AND_OR_COMMA_RGX_STR)
 
 MSG_RGX = re.compile(MSG_RGX_STR, flags=re.VERBOSE | re.IGNORECASE)
+
+SCHEDULER_KEY = 'search_scheduler'
+HANDLER_KEY = 'event_handler'
+
+
+def get_potential_targets(request):
+    return SEARCH_TARGET_NAMES[:]
 
 
 def slack_events(request):
@@ -231,6 +341,8 @@ def slack_events(request):
 
     evt = bod['event']
     msg = evt['text']
+    channel = evt['channel']
+    user = evt['user']
     edited = evt.get('edited')
     if edited:
         user_ts = edited['ts']
@@ -252,24 +364,62 @@ def slack_events(request):
     if md:
         tgts = re.split(AND_OR_COMMA_RGX_STR, md.group('targets'))
         found_tgts = []
+        query_str = md.group('query')
+        # A list of available targets for this requester, a subset of all
+        # possible targets (those in the message regex)
+        potential_targets = get_potential_targets(request)
         for t in tgts:
-            for s in SEARCH_TARGET_NAMES:
+            for s in potential_targets:
                 if s.lower() == t.lower():
                     found_tgts.append(s)
-        res = slack_client.api_call('users.info', user=evt['user'])
-        tz = timezone(res['user']['tz'])
+
+        queries = []
+        for t in found_tgts:
+            queries.append(SEARCH_TARGETS[t]['query_type'](query_str))
+
+        user_info = slack_client.api_call('users.info', user=user)
+        tz = timezone(user_info['user']['tz'])
         sched = RecurringEvent(now_date=datetime.fromtimestamp(user_ts, tz))
-        rrule = sched.parse(md.group('schedule'))
-        reply = 'OK, <@{}>, I will search for "{}" on {} with a schedule of "{}"'
-        reply = reply.format(evt['user'],
-                             md.group('query'),
+        rrule_str = sched.parse(md.group('schedule'))
+        schedule = rrulestr(rrule_str)
+        reply = ('OK, <@{}>, I will search for "{}" on {} with a schedule of "{}". '
+                 'The next query will be at {}')
+        reply = reply.format(user,
+                             query_str,
                              ", ".join(found_tgts),
-                             str(rrule))
+                             str(rrule_str),
+                             schedule.after(datetime.now()))
+
+        # TODO: Make this logic also account for per-user schedule requests,
+        # org-level event handlers and storage
+        key = ('slack_channel', channel)
+        if SCHEDULER_KEY not in request.context:
+            # TODO: Put this in a different place and use a remote search scheduler
+            request.context[SCHEDULER_KEY] = PersistentDict()
+
+        if key not in request.context[SCHEDULER_KEY]:
+            request.context[SCHEDULER_KEY][key] = ListSearchScheduler()
+
+        if HANDLER_KEY not in request.context:
+            # TODO: Put this in a different place and use a remote event handler
+            request.context[HANDLER_KEY] = PersistentDict()
+
+        if key not in request.context[HANDLER_KEY]:
+            request.context[HANDLER_KEY][key] = EventHandler()
+
+        scheduler = request.context[SCHEDULER_KEY][key]
+        event_handler = request.context[HANDLER_KEY][key]
+
+        for q in queries:
+            scheduler.add_schedule(q, schedule, event_handler)
+
+        if not scheduler.is_running:
+            scheduler.run()
     else:
         with Popen(["fortune"], stdout=subproc_PIPE) as proc:
             fortune = proc.stdout.read().decode('utf-8')
         reply = 'Sorry, <@{}>, I don\'t know about that, but think about this:\n{}'
-        reply = reply.format(evt['user'], fortune)
+        reply = reply.format(user, fortune)
 
     send_message(slack_client, evt['channel'], reply, thread)
     return Response('')
@@ -283,13 +433,3 @@ if __name__ == '__main__':
 
     server = make_server('0.0.0.0', 8080, app)
     server.serve_forever()
-
-    # sc = SlackClient(api_key)
-
-    # aq = ArxivQuery('ti:C and ti:elegans or abs:C and abs:elegans')
-    # r = aq.execute()
-
-    # for pe in r.events():
-        # sc.api_call('chat.postMessage',
-                    # channel='#bot-test',
-                    # text=pe.msg_format(SlackMessageContent).render())

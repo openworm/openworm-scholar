@@ -78,9 +78,23 @@ class ViewTests(unittest.TestCase):
         self.mock_request.json_body['event']['text'] = msg
         def call(message, user=None, **kwargs):
             if message == 'users.info' and user is not None:
-                return {'user':{'tz': 'America/Chicago'}}
+                return {'user': {'tz': 'America/Chicago'}}
             else:
                 return DEFAULT
         self.mock_slack().api_call.side_effect = call
         slack_events(self.mock_request)
         self.mock_slack().api_call.assert_called_with('chat.postMessage', channel='chan', text=Contains('<@'+self.uname+'>'))
+
+    def test_store(self):
+        target = random.choice(slack_bot.SEARCH_TARGET_NAMES)
+        msg = 'Search for grapes at ' + target
+        self.mock_request.json_body['event']['text'] = msg
+        def call(message, user=None, **kwargs):
+            if message == 'users.info' and user is not None:
+                return {'user': {'tz': 'America/Chicago'}}
+            else:
+                return DEFAULT
+        self.mock_slack().api_call.side_effect = call
+        slack_events(self.mock_request)
+        self.mock_slack().api_call.assert_called_with('chat.postMessage', channel='chan', text=Contains('<@'+self.uname+'>'))
+

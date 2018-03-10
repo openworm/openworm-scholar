@@ -1,7 +1,9 @@
 from pyramid.config import Configurator
 from pyramid_zodbconn import get_connection
 from .models import appmaker
-from .slack_bot import slack_events
+from .slack_bot import slack_events, SCHEDULER_KEY
+from zodburi import resolve_uri
+from ZODB.DB import DB
 
 
 def root_factory(request):
@@ -9,10 +11,35 @@ def root_factory(request):
     return appmaker(conn.root())
 
 
+def run_schedulers(conn):
+    try:
+        root = conn.root()
+        schedulers = root.get(SCHEDULER_KEY)
+        if schedulers:
+            print("we have schedulers")
+            for scheduler in schedulers.values():
+                print("Scheduling", scheduler)
+                scheduler.run()
+        else:
+            print("we have no schedulers")
+    finally:
+        conn.close()
+
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     settings['tm.manager_hook'] = 'pyramid_tm.explicit_manager'
+    storage_factory, dbkw = resolve_uri(settings['zodbconn.uri'])
+    storage = storage_factory()
+    print('database configs', dbkw)
+    db = DB(storage, **dbkw)
+    try:
+        conn = db.open()
+        run_schedulers(conn)
+    finally:
+        db.close()
+
     with Configurator(settings=settings) as config:
         config.include('pyramid_jinja2')
         config.add_jinja2_renderer('.j2', settings_prefix='jinja2.')
