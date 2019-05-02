@@ -9,7 +9,7 @@ COPY . /ow_scholar
 
 RUN pip3 --no-cache-dir install -r requirements.txt                                                                            
 
-EXPOSE 3000
+EXPOSE 5000
 
 ENTRYPOINT  ["python3"]
 
