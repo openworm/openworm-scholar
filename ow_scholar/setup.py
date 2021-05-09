@@ -1,12 +1,4 @@
-import os
-
 from setuptools import setup, find_packages
-
-here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.txt')) as f:
-    README = f.read()
-with open(os.path.join(here, 'CHANGES.txt')) as f:
-    CHANGES = f.read()
 
 requires = [
     'plaster_pastedeploy',
@@ -19,6 +11,10 @@ requires = [
     'transaction',
     'ZODB3',
     'waitress',
+    'arxiv',
+    'slackclient',
+    'recurrent',
+    'python-dateutil',
 ]
 
 tests_require = [
@@ -31,7 +27,6 @@ setup(
     name='ow_scholar',
     version='0.0',
     description='ow-scholar',
-    long_description=README + '\n\n' + CHANGES,
     classifiers=[
         'Programming Language :: Python',
         'Framework :: Pyramid',

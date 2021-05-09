@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock, patch, ANY, DEFAULT
+from unittest.mock import MagicMock, patch, DEFAULT
 
 import random
 from pyramid import testing
@@ -26,6 +26,9 @@ class Matches(object):
 
     def __str__(self):
         return str(self.rgx)
+
+    def __repr__(self):
+        return f'Matches({self.rgx.pattern!r})'
 
 
 class Contains(object):
@@ -58,7 +61,7 @@ class ViewTests(unittest.TestCase):
 
     def setUp(self):
         self.mock_os = self.patch_object(slack_bot, 'os')
-        self.mock_slack = self.patch_object(slack_bot, 'SlackClient')
+        self.mock_slack = self.patch_object(slack_bot, 'slack').WebClient
         self.config = testing.setUp()
         self.bot_token = 'bottok'
         self.mock_os.environ = {'SLACK_API_KEY': 'key', 'SLACK_BOT_TOKEN': self.bot_token}
@@ -84,26 +87,7 @@ class ViewTests(unittest.TestCase):
         target = random.choice(slack_bot.SEARCH_TARGET_NAMES)
         msg = 'Search for grapes at ' + target
         self.mock_request.json_body['event']['text'] = msg
-        def call(message, user=None, **kwargs):
-            if message == 'users.info' and user is not None:
-                return {'user': {'tz': 'America/Chicago'}}
-            else:
-                return DEFAULT
-        self.mock_slack().api_call.side_effect = call
-        slack_events(self.mock_request)
-        self.mock_slack().api_call.assert_called_with('chat.postMessage',
-                                                      channel='chan',
-                                                      text=Matches('RRULE:.*FREQ=DAILY'))
 
-    def test_message_nightly(self):
-        """
-        As opposed to 'daily' scheduling, nightly denotes a time of day LOCAL
-        TO THE USER, so we want that, wherever that user is, the query executes
-        in the 'night' for them.
-        """
-        target = random.choice(slack_bot.SEARCH_TARGET_NAMES)
-        msg = 'Search for grapes at ' + target
-        self.mock_request.json_body['event']['text'] = msg
         def call(message, user=None, **kwargs):
             if message == 'users.info' and user is not None:
                 return {'user': {'tz': 'America/Chicago'}}
@@ -129,20 +113,11 @@ class ViewTests(unittest.TestCase):
         """
         self.fail("Not implemented")
 
-    @unittest.expectedFailure
-    def test_message_nightly_at_same_time_spreads_out(self):
-        """
-        Similar to 'daily', given a broad specification like 'nightly', we can
-        spread out executions so that our server experiences less 'bursty'
-        load, and ultimately uses resources better given an 'always-on'
-        configuration
-        """
-        self.fail("Not implemented")
-
     def test_message_sent_to_user_at_channel_2(self):
         target = random.choice(slack_bot.SEARCH_TARGET_NAMES)
         msg = 'Search for grapes at ' + target
         self.mock_request.json_body['event']['text'] = msg
+
         def call(message, user=None, **kwargs):
             if message == 'users.info' and user is not None:
                 return {'user': {'tz': 'America/Chicago'}}
@@ -150,7 +125,9 @@ class ViewTests(unittest.TestCase):
                 return DEFAULT
         self.mock_slack().api_call.side_effect = call
         slack_events(self.mock_request)
-        self.mock_slack().api_call.assert_called_with('chat.postMessage', channel='chan', text=Contains('<@'+self.uname+'>'))
+        self.mock_slack().api_call.assert_called_with(
+                'chat.postMessage', channel='chan', text=Contains('<@'+self.uname+'>'))
+
 
 class StoreTests(unittest.TestCase):
     def setUp(self):
@@ -182,7 +159,7 @@ class StoreTests(unittest.TestCase):
         root['aba']['maba'] = 3
         self.reopen()
         root = self.conn.root()
-        self.assertEquals(root['aba']['maba'], 3)
+        self.assertEqual(root['aba']['maba'], 3)
 
     def test_persist_EventHandler(self):
         root = self.conn.root()
@@ -190,7 +167,7 @@ class StoreTests(unittest.TestCase):
         root['event'] = eh
         self.reopen()
         root = self.conn.root()
-        self.assertEquals(eh, root['event'])
+        self.assertEqual(eh, root['event'])
 
     def test_persist_ListSearchScheduler_empty(self):
         root = self.conn.root()
@@ -198,7 +175,7 @@ class StoreTests(unittest.TestCase):
         root['sched'] = ss
         self.reopen()
         root = self.conn.root()
-        self.assertEquals(ss, ListSearchScheduler())
+        self.assertEqual(ss, ListSearchScheduler())
 
     def test_persist_ListSearchScheduler_timefunc(self):
         from time import time
@@ -207,7 +184,7 @@ class StoreTests(unittest.TestCase):
         root['sched'] = ss
         self.reopen()
         root = self.conn.root()
-        self.assertEquals(root['sched'].timefunc, time)
+        self.assertEqual(root['sched'].timefunc, time)
 
     def test_persist_ListSearchScheduler_is_running(self):
         root = self.conn.root()
@@ -215,7 +192,7 @@ class StoreTests(unittest.TestCase):
         root['sched'] = ss
         self.reopen()
         root = self.conn.root()
-        self.assertEquals(root['sched'].is_running, False)
+        self.assertEqual(root['sched'].is_running, False)
 
     def test_persist_ListSearchScheduler_set_timefunc(self):
         from time import time

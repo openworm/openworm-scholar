@@ -1,7 +1,7 @@
 import os
 import re
-from arxiv_cli import Client as ArxivClient
-from slackclient import SlackClient
+import arxiv
+import slack
 from urllib.parse import quote_plus as urlquote_plus
 
 from wsgiref.simple_server import make_server
@@ -11,7 +11,6 @@ from pyramid.response import Response
 from recurrent import RecurringEvent
 from dateutil.rrule import rrulestr
 from datetime import datetime
-from subprocess import Popen, PIPE as subproc_PIPE
 from sched import scheduler
 from time import time, sleep
 from threading import Thread
@@ -97,7 +96,7 @@ class Query(Persistent):
 class ArxivQuery(Query):
     def __init__(self, s):
         self.search_query = s
-        self._client = ArxivClient()
+        self._client = arxiv.Client()
 
     def msg_format(self, content_type):
         if issubclass(content_type, SlackMessageContent):
@@ -110,7 +109,7 @@ class ArxivQuery(Query):
 
     def execute(self):
         print("running arxiv query for: " + self.search_query)
-        r = self._client.find(self.search_query)
+        r = self._client.get(arxiv.Search(query=self.search_query))
         return ArxivQueryResponse(r, self)
 
     def validate(self):
@@ -339,7 +338,7 @@ class SlackUser(User):
 
 def send_message(api_key_or_client, channel, s, thread=None):
     if isinstance(api_key, str):
-        sc = SlackClient(api_key)
+        sc = slack.WebClient(token=api_key)
     else:
         sc = api_key_or_client
 
@@ -398,7 +397,7 @@ def slack_events(request):
         thread = None
 
     slack_api_key = os.environ.get('SLACK_API_KEY')
-    slack_client = SlackClient(slack_api_key)
+    slack_client = slack.WebClient(token=slack_api_key)
     user_ts = float(user_ts)
     # Parsing natural language with regex...we can add a context free grammar later...
     md = MSG_RGX.search(msg)
@@ -458,13 +457,9 @@ def slack_events(request):
             for q in queries:
                 scheduler.add_schedule(q, schedule, event_handler)
         else:
-            reply = 'Sorry, <@{}>, but I don\'t understand this search schedule: {}'
-            reply = reply.format(user, sched_str)
+            reply = f'Sorry, <@{user}>, but I don\'t understand this search schedule: {sched_str}'
     else:
-        with Popen(["fortune"], stdout=subproc_PIPE) as proc:
-            fortune = proc.stdout.read().decode('utf-8')
-        reply = 'Sorry, <@{}>, I don\'t know about that, but think about this:\n{}'
-        reply = reply.format(user, fortune)
+        reply = f'Sorry, <@{user}>, I don\'t know about that'
 
     send_message(slack_client, evt['channel'], reply, thread)
     return Response('')
